@@ -24,7 +24,7 @@ def part2():
 
     for i in range(1, len(rnges)):
         if rnges[i][0] <= all_ranges[-1][1]:
-            all_ranges[-1] = [min(all_ranges[-1][0], all_ranges[-1][1], rnges[i][0], rnges[i][1]), max(all_ranges[-1][0], all_ranges[-1][1], rnges[i][0], rnges[i][1])]
+            all_ranges[-1] = [min(*all_ranges[-1], *rnges[i]), max(*all_ranges[-1], *rnges[i])]
 
         else:
             all_ranges.append(rnges[i])

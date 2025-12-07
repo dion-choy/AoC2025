@@ -19,6 +19,7 @@ def part1():
 
 def part2():
     ls = [i for i in input if i != ""]
+    ops = [i for i in ls[-1].split(" ") if i != ""]
 
     count = 0
     col = 0
@@ -29,16 +30,16 @@ def part2():
             num += ls[i][j] if ls[i][j] != " " else ""
 
         if num.strip() == "":
-            count += cur-1 if [i for i in ls[-1].split(" ") if i != ""][col] == "+" else cur
+            count += cur-1 if ops[col] == "+" else cur
             cur = 1
             col += 1
         else:
-            if [i for i in ls[-1].split(" ") if i != ""][col] == "+":
+            if ops[col] == "+":
                 cur += int(num)
             else:
                 cur *= int(num)
 
-    count += cur-1 if [i for i in ls[-1].split(" ") if i != ""][col] == "+" else cur
+    count += cur-1 if ops[col] == "+" else cur
 
     return count
 
