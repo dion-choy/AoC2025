@@ -1,17 +1,17 @@
 with open("./day12.txt") as txt:
     input = txt.read().strip().split("\n")
 
-    presents = [{"shape": [list(input[i+1]), list(input[i+2]), list(input[i+3])], "area": input[i+1].count("#") + input[i+2].count("#") + input[i+3].count("#")} for i in range(0, 6*5, 5)]
+    presents = [[list(input[i+1]), list(input[i+2]), list(input[i+3])] for i in range(0, 6*5, 5)]
     input = [[[int(j) for j in i.split(" ")[0][:-1].split("x")], [int(j) for j in i.split(" ")[1:]]] for i in input[6*5:]]
 
+def golf():
+    return sum(region[0]*region[1]>sum(shapes[i]*sum(j.count("#") for j in presents[i]) for i in range(len(shapes))) for region, shapes in input)
 
 def part1():
     count = 0
     for region, shapes in input:
         area = region[0] * region[1]
-
-        shape_area = 0
-        shape_area = sum([shapes[i]*presents[i]["area"] for i in range(len(shapes))])
+        shape_area = sum(shapes[i]*sum(j.count("#") for j in presents[i]) for i in range(len(shapes)))
 
         if shape_area > area:
             continue
@@ -21,3 +21,4 @@ def part1():
     return count
 
 print(part1())
+print("Golf:", golf())
