@@ -1,3 +1,5 @@
+import time
+
 with open("day2.txt") as txt:
     input = txt.read().strip().split(",")
     input = [i.split("-") for i in input]
@@ -31,6 +33,8 @@ def part2():
                     break
     return count
 
-print(part1())
-print(part2())
+start = time.time()
+print(part1(), "(%fs)" % (time.time()-start))
+start = time.time()
+print(part2(), "(%fs)" % (time.time()-start))
 
