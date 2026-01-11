@@ -1,10 +1,9 @@
-[@@@warning "-8"]
-let input = List.map (fun [a; b] -> (a, b)) (
-    List.map (String.split_on_char '-') (
-        String.split_on_char ',' (String.trim (In_channel.with_open_text "./day2.txt" In_channel.input_all))
-        )
-    )
-[@@@warning "+8"]
+let input =
+    List.map (fun s ->
+        match String.split_on_char '-' s with
+        | [a; b] -> (a, b)
+        | _ -> failwith ("Invalid input format: " ^ s)
+    ) (String.split_on_char ',' (String.trim (In_channel.with_open_text "./day2.txt" In_channel.input_all)))
 
 let part1 input = 
     let check_num num_str =
@@ -17,11 +16,7 @@ let part1 input =
     let rec range num target =
         if int_of_string num > int_of_string target then 0
         else check_num num + range (string_of_int (int_of_string num +1)) target in
-    let rec loop lst =
-        match lst with
-        | head :: tail -> range (fst head) (snd head) + loop tail
-        | [] -> 0 in
-    loop input
+    List.fold_left (fun acc (min, max) -> acc + range min max) 0 input
 
 let part2 input = 
     let rec all_equal prev lst =
@@ -42,11 +37,7 @@ let part2 input =
     let rec range num target =
         if int_of_string num > int_of_string target then 0
         else repeats 1 num + range (string_of_int (int_of_string num +1)) target in
-    let rec loop lst =
-        match lst with
-        | head :: tail -> range (fst head) (snd head) + loop tail
-        | [] -> 0 in
-    loop input
+    List.fold_left (fun acc (min, max) -> acc + range min max) 0 input
 
 let time f x =
     let t = Sys.time() in

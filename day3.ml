@@ -11,11 +11,7 @@ let part1 input =
     let process lst =
         find_max (List.take (List.length lst -1) lst) * 10
         + find_max (List.drop (find_index_max (List.take (List.length lst -1) lst) +1) lst) in
-    let rec loop lst =
-        match lst with
-        | first :: tail -> loop tail + process first
-        | [] -> 0 in
-    loop input
+    List.fold_left (fun acc x -> acc + process x) 0 input
 
 let part2 input =
     let rec exp num ex = if ex > 0 then exp num (ex-1) * num else 1 in
@@ -29,11 +25,7 @@ let part2 input =
                 List.drop (find_index_max sub_row +1) row
                 ) + (exp 10 cnt * find_max sub_row)
         else 0 in
-    let rec loop lst =
-        match lst with
-        | first :: tail -> loop tail + process 11 first
-        | [] -> 0 in
-    loop input
+    List.fold_left (fun acc x -> acc + process 11 x) 0 input
 
 let time f x =
     let t = Sys.time() in
