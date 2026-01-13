@@ -18,7 +18,6 @@ def part1():
     return count
 
 def part2():
-
     rnges = sorted(ranges)
     all_ranges = [rnges[0]]
 
