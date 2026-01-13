@@ -35,30 +35,25 @@ let part1 fruits ranges =
     0 fruits
 
 let part2 ranges =
-  let sorted_rng =
-    List.sort
-      (fun (a_start, a_end) (b_start, b_end) -> a_start - b_start)
-      ranges
-  in
-  let combined_rng =
-    List.fold_left
-      (fun acc (rng_start, rng_end) ->
-        let last_start, last_end = List.hd acc in
-        if rng_start > last_end then [ (rng_start, rng_end) ] @ acc
-        else
-          [
-            ( List.fold_left min Int.max_int
-                [ rng_start; rng_end; last_start; last_end ],
-              List.fold_left max 0 [ rng_start; rng_end; last_start; last_end ]
-            );
-          ]
-          @ List.drop 1 acc)
-      [ List.hd sorted_rng ]
-      (List.drop 1 sorted_rng)
-  in
-  List.fold_left
-    (fun acc (rng_start, rng_end) -> rng_end - rng_start + 1 + acc)
-    0 combined_rng
+  (ranges
+  |> List.sort (fun (a_start, a_end) (b_start, b_end) -> a_start - b_start)
+  |> List.fold_left
+       (fun acc (rng_start, rng_end) ->
+         let last_start, last_end = List.hd acc in
+         if rng_start > last_end then [ (rng_start, rng_end) ] @ acc
+         else
+           [
+             ( List.fold_left min Int.max_int
+                 [ rng_start; rng_end; last_start; last_end ],
+               List.fold_left max 0 [ rng_start; rng_end; last_start; last_end ]
+             );
+           ]
+           @ List.drop 1 acc)
+       [ (0, 0) ]
+  |> List.fold_left
+       (fun acc (rng_start, rng_end) -> rng_end - rng_start + 1 + acc)
+       0)
+  - 1
 
 let time f x =
   let t = Sys.time () in
