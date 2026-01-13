@@ -9,9 +9,9 @@ let input =
 
 let part1 input =
   let padding grid =
-    [ List.init (List.length grid + 2) (fun x -> '.') ]
+    [ List.init (List.length grid + 2) (Fun.const '.') ]
     @ List.map (fun x -> [ '.' ] @ x @ [ '.' ]) grid
-    @ [ List.init (List.length grid + 2) (fun x -> '.') ]
+    @ [ List.init (List.length grid + 2) (Fun.const '.') ]
   in
   let process three_row =
     let rec scan_window count lst =
@@ -48,9 +48,9 @@ let part1 input =
 
 let part2 input =
   let padding grid =
-    [ List.init (List.length grid + 2) (fun x -> '.') ]
+    [ List.init (List.length grid + 2) (Fun.const '.') ]
     @ List.map (fun x -> [ '.' ] @ x @ [ '.' ]) grid
-    @ [ List.init (List.length grid + 2) (fun x -> '.') ]
+    @ [ List.init (List.length grid + 2) (Fun.const '.') ]
   in
   let process three_row =
     let rec scan_window count lst =
