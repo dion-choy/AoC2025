@@ -34,11 +34,6 @@ let part1 fruits ranges =
       else 0)
     0 fruits
 
-(* let () = *)
-(*   List.iter (fun (fst, snd) -> Printf.printf "%d to %d\n" fst snd) ranges; *)
-(*   print_endline ""; *)
-(*   List.iter (Printf.printf "%d\n") fruits *)
-
 let part2 ranges =
   let sorted_rng =
     List.sort
