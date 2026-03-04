@@ -20,7 +20,6 @@ def part2():
     beams = [0]*len(input[0])
     beams[input[0].index('S')] = 1
 
-    paths = []
     for i in range(2, len(input), 2):
         for j in range(len(beams)):
             if input[i][j] == "^" and beams[j] >= 1:
